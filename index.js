@@ -1,20 +1,27 @@
+var taskData = [];
 
-const taskData = [
-  { id: 1, content: "buy milk", created_at: "12/2/23", isEditing: false },
-];
+function uniqueId() {
+  const dateString = Date.now().toString(36);
+  const randomness = Math.random().toString(36).substr(2);
+  return dateString + randomness;
+}
 
-function uniqueId (){
-    const dateString = Date.now().toString(36);
-    const randomness = Math.random().toString(36).substr(2);
-    return dateString + randomness;
-  };
+function deleteTask(taskId) {
+  const filtered = taskData.filter((task) => {
+    task.id !== taskId;
+  });
+  taskData = filtered;
+  console.log("filter: ", filtered);
+  clearData();
+  showTasks();
+}
 
-function showTasks(){
+function showTasks() {
   const itemList = document.querySelector(".tasks-container");
   taskData.forEach(function (item) {
     var div1 = document.createElement("div");
     div1.className = "task";
-    div1.id = `task-${uniqueId()}`;
+    div1.id = uniqueId();
 
     var div2 = document.createElement("div");
     div2.className = "task-data";
@@ -26,13 +33,16 @@ function showTasks(){
     p.textContent = item.created_at;
 
     var editButton = document.createElement("button");
-    editButton.className = "edit-button";
+    editButton.id = "edit-button";
     editButton.textContent = "edit";
 
     var deleteButton = document.createElement("button");
-    deleteButton.className = "delete-button";
+    deleteButton.id = "delete-button";
     deleteButton.textContent = "delete";
-
+    // Add event listener for delete-button here
+    deleteButton.addEventListener("click", function handleClick(event) {
+      deleteTask(event.target.parentElement.id);
+    });
     itemList.appendChild(div1);
     div1.appendChild(div2);
     div2.appendChild(h6);
