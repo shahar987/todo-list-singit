@@ -1,6 +1,6 @@
-let taskData = [{ id: "ckcns", content: "test", created_at: "test", colorTag: "red" }];
-const colorTag = ["red", "blue", "green", "yellow"]
-let curColor = "red"
+let taskData = [];
+const colorTag = ["red", "blue", "green", "yellow"];
+let curColor = "red";
 
 function uniqueId() {
   const dateString = Date.now().toString(36);
@@ -9,29 +9,33 @@ function uniqueId() {
 }
 
 function clearData() {
-    const itemList = document.querySelector(".tasks-container");
-    while (itemList.firstChild) {
-      itemList.removeChild(itemList.firstChild);
-    }
+  const itemList = document.querySelector(".tasks-container");
+  while (itemList.firstChild) {
+    itemList.removeChild(itemList.firstChild);
   }
+}
 
 function addTask() {
-    console.log(curColor);
-    const inputElement = document.querySelector("#create-task");
+  const inputElement = document.querySelector("#create-task");
+  if (inputElement.value === "") {
+    alert("Please enter text");
+  } else {
     const id = uniqueId();
     const timestamp = new Date().getTime();
     taskData.push({
       id: id,
       content: inputElement.value,
       created_at: timestamp,
-      colorTag: curColor
+      colorTag: curColor,
     });
     clearData();
     showTasks();
     inputElement.value = "";
-    document.getElementById("chooseColorBtn").className = "fa-solid fa-circle dropbtn red";
-    curColor="red";
+    document.getElementById("chooseColorBtn").className =
+      "fa-solid fa-circle dropbtn red";
+    curColor = "red";
   }
+}
 
 function editTask(taskId) {
   taskData.map((task) => {
@@ -50,7 +54,7 @@ function editTask(taskId) {
         const taskId = event.target.parentElement.id;
         saveEdit(taskId);
       });
-      curTask.classList.add("edit-border")
+      curTask.classList.add("edit-border");
       curTask.appendChild(input);
       curTask.appendChild(checkIcon);
     }
@@ -58,14 +62,14 @@ function editTask(taskId) {
 }
 
 function saveEdit(taskId) {
-    const task = taskData.find((item) => item.id === taskId);
-    const val = document.querySelector("#edit-task").value;
-    if (task) {
-      task.content = val;
-      clearData();
-      showTasks();
-    }
+  const task = taskData.find((item) => item.id === taskId);
+  const val = document.querySelector("#edit-task").value;
+  if (task) {
+    task.content = val;
+    clearData();
+    showTasks();
   }
+}
 
 function deleteTask(taskId) {
   const filtered = taskData.filter((task) => task.id !== taskId);
@@ -106,74 +110,79 @@ function showTasks() {
       deleteTask(taskId);
     });
     itemList.appendChild(div1);
-    createDropDwn(item.id, item.colorTag)
+    createDropDwn(item.id, item.colorTag);
     div1.appendChild(div2);
     div2.appendChild(content);
     div1.appendChild(right);
     right.appendChild(editButton);
     right.appendChild(deleteButton);
-    
   });
 }
 
-function editColor(color, taskId){
-    const task = taskData.find((item) => item.id === taskId);
-    task.colorTag = color
-    clearData();
-    showTasks();
-
+function editColor(color, taskId) {
+  const task = taskData.find((item) => item.id === taskId);
+  task.colorTag = color;
+  clearData();
+  showTasks();
 }
-function createDropDwn(taskId, color){
-    const task = document.querySelector(`#${taskId}`);
-    var dropDownContainer =  document.createElement("div")
-    dropDownContainer.className = "dropdown"
-    var myDropdown = document.createElement("div")
-    myDropdown.id = uniqueId()
-    console.log("create id",myDropdown.id)
-    myDropdown.className = "dropdown-content"
-    var dropDownBtn = document.createElement("i")
-    dropDownBtn.className = `fa-solid fa-circle dropbtn ${color}`
-    task.appendChild(dropDownContainer)
-    dropDownContainer.appendChild(dropDownBtn)
-    dropDownContainer.appendChild(myDropdown)
-    dropDownBtn.addEventListener("click", function handleClick(event) {
-        const dropDownId = event.target.parentElement.lastChild.id
-        showColors(dropDownId);
-      });
-    
-    colorTag.map(color => {
-        let i = document.createElement("i");
-        i.className = `fa-solid fa-circle ${color}`
-        i.id=uniqueId();
-        i.value=color
-        i.addEventListener("click", function handleClick(event) {
-            let taskId1 = event.target.parentElement.parentElement.parentElement.id
-            editColor(taskId1, color)
-          });
-        myDropdown.appendChild(i)
+function createDropDwn(taskId, color) {
+  const task = document.querySelector(`#${taskId}`);
+  var dropDownContainer = document.createElement("div");
+  dropDownContainer.className = "dropdown";
+  var myDropdown = document.createElement("div");
+  myDropdown.id = uniqueId();
+  myDropdown.className = "dropdown-content";
+  var dropDownBtn = document.createElement("i");
+  dropDownBtn.className = `fa-solid fa-circle dropbtn ${color}`;
+  task.appendChild(dropDownContainer);
+  dropDownContainer.appendChild(dropDownBtn);
+  dropDownContainer.appendChild(myDropdown);
+  dropDownBtn.addEventListener("click", function handleClick(event) {
+    const dropDownId = event.target.parentElement.lastChild.id;
+    showColors(dropDownId);
+  });
 
-    })
-    
+  colorTag.map((color) => {
+    let i = document.createElement("i");
+    i.className = `fa-solid fa-circle ${color}`;
+    i.id = uniqueId();
+    i.value = color;
+    i.addEventListener("click", function handleClick(event) {
+      let taskId1 = event.target.parentElement.parentElement.parentElement.id;
+      editColor(taskId1, color);
+    });
+    myDropdown.appendChild(i);
+  });
 }
 
 function showColors(dropDownId) {
   document.getElementById(dropDownId).classList.toggle("show");
 }
 
-function chooseColor(color){
-    curColor = color
-    document.getElementById("chooseColorBtn").className = `fa-solid fa-circle dropbtn ${color}`;
+function chooseColor(color) {
+  curColor = color;
+  document.getElementById(
+    "chooseColorBtn"
+  ).className = `fa-solid fa-circle dropbtn ${color}`;
 }
 
-function editColor(taskId, color){
-    const task = taskData.find((item) => item.id === taskId);
-    console.log("taskId",taskId)
-    if (task) {
-      task.colorTag = color;
-      clearData();
-      showTasks();
-    }
+function editColor(taskId, color) {
+  const task = taskData.find((item) => item.id === taskId);
+  console.log("taskId", taskId);
+  if (task) {
+    task.colorTag = color;
+    clearData();
+    showTasks();
+  }
 }
+
+var input = document.getElementById("create-task");
+input.addEventListener("keypress", function (event) {
+  if (event.key === "Enter") {
+    console.log(event.key);
+    document.querySelector(".save").click();
+  }
+});
 
 window.onclick = function (event) {
   if (!event.target.matches(".dropbtn")) {
@@ -187,4 +196,4 @@ window.onclick = function (event) {
     }
   }
 };
-showTasks()
+showTasks();

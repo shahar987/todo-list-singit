@@ -7,6 +7,7 @@ body {
   padding-top: 30px;
   font-family: "Roboto", sans-serif;
   text-align: center;
+  overflow-y: hidden;
 }
 .title {
   font-family: "Caveat", cursive;
@@ -14,17 +15,31 @@ body {
 }
 .frame {
   background-color: white;
-  border-radius: 30px;
+  border-radius: 20px;
   padding: 10px;
   box-shadow: 5px 10px 18px #888888;
   width: 25rem;
-  height: 30rem;
+  min-height: 350px;
+  max-height: 30rem;
+  overflow: auto;
+}
+::-webkit-scrollbar-track {
+  border-radius: 8px;
+  background-color: #95a5a6;
+  border: 1px solid #cacaca;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  background-color: #2c3e50;
 }
 .tasks-container {
   display: flex;
   flex-direction: column-reverse;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
+  /* max-height: 350px; */
+  padding: 10px;
 }
 .task {
   display: flex;
@@ -41,11 +56,13 @@ body {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  overflow-wrap: break-word;
 }
 
 .task-data > p {
   margin: 0;
-  text-transform: capitalize;
+  max-width: 240px;
+  text-align: left;
 }
 .edit-border {
   border: rgba(0, 0, 0, 0.47) 1px solid;
@@ -74,6 +91,7 @@ body {
   outline: none;
   padding: 10px;
   border: none;
+  width: 90%;
 }
 
 .save {
@@ -94,7 +112,9 @@ i {
 }
 
 #chooseColorBtn {
-  margin: 0;
+  padding: 20px;
+  margin-right: 5px;
+  box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.15);
 }
 
 .dropbtn {
@@ -102,7 +122,7 @@ i {
   align-items: center;
   justify-content: center;
   background-color: white;
-  padding: 10px;
+  padding: 20px;
   font-size: 10px;
   border: none;
   cursor: pointer;
@@ -122,23 +142,19 @@ i {
   flex-direction: column;
   position: absolute;
   background-color: white;
-  /* max-width: 30px; */
-  overflow: auto;
   border-radius: 3px;
-  box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.2);
-  z-index: 1;
+  box-shadow: -10px 10px 20px -10px rgba(0, 0, 0, 0.256);  z-index: 1;
 }
 
 .dropdown-content i {
   margin: 0;
-  padding: 10px;
+  padding: 20px;
   display: flex;
   font-size: 10px;
   width: 15px;
   height: 15px;
   justify-content: center;
   align-items: center;
-
 }
 
 .red {
@@ -155,7 +171,7 @@ i {
   color: #f7fc24;
 }
 .dropdown i:hover {
-  background-color: rgba(128, 128, 128, 0.199);
+    font-size: 12px;
 }
 
 .show {
@@ -163,4 +179,24 @@ i {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+::-webkit-scrollbar {
+  width: 20px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+  border: none;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #f8ebfe;
+  border-radius: 20px;
+  border: 6px solid transparent;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #a8bbbf;
 }
