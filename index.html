@@ -4,21 +4,32 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat&family=Roboto&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/cef2ba0aa3.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="styles.css" />
     <title>Document</title>
   </head>
   <body>
     <div class="frame">
-      <h1>Todo</h1>
-      <div class="tasks-container"></div>
+      <h1 class="title">Todo List</h1>
       <div class="create_task">
-        <div class="create-content">
-          <input id="create-task"/>
-        </div>
-        <button onclick="addTask()">save</button>
+        <div class="dropdown">
+            <i onclick="showColors('main-dropdown')" id="chooseColorBtn" class="fa-solid fa-circle dropbtn red"></i>
+            <div class="dropdown-content" id="main-dropdown">
+                <i onclick="chooseColor('red')" class="fa-solid fa-circle red"></i>
+                <i onclick="chooseColor('blue')" class="fa-solid fa-circle blue"></i>
+                <i onclick="chooseColor('green')" class="fa-solid fa-circle green"></i>
+                <i onclick="chooseColor('yellow')" class="fa-solid fa-circle yellow"></i>
+            </div>
+          </div>
+        <input id="create-task" placeholder="Enter text here"/>
+        <button onclick="addTask()" class="save">Save</button>
       </div>
+      <div class="tasks-container"></div>
     </div>
+    
     <script src="index.js"></script>
   </body>
 </html>
