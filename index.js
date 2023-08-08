@@ -21,7 +21,8 @@ function addTask() {
     alert("Please enter text");
   } else {
     const id = uniqueId();
-    const timestamp = new Date().getTime();
+    const timestamp =  getCurrentDateTime();
+    console.log(timestamp);
     taskData.push({
       id: id,
       content: inputElement.value,
@@ -93,6 +94,7 @@ function showTasks() {
 
     var p = document.createElement("p");
     p.textContent = item.created_at;
+    p.className = "time"
 
     var right = document.createElement("div");
     right.className = "right";
@@ -113,6 +115,7 @@ function showTasks() {
     createDropDwn(item.id, item.colorTag);
     div1.appendChild(div2);
     div2.appendChild(content);
+    div2.appendChild(p);
     div1.appendChild(right);
     right.appendChild(editButton);
     right.appendChild(deleteButton);
@@ -183,6 +186,18 @@ input.addEventListener("keypress", function (event) {
     document.querySelector(".save").click();
   }
 });
+
+function getCurrentDateTime() {
+    const now = new Date();
+    const day = now.getDate().toString().padStart(2, '0'); // Get day and pad with leading zero if needed
+    const month = (now.getMonth() + 1).toString().padStart(2, '0'); // Get month and add 1 (months are zero-based) and pad with leading zero if needed
+    const year = now.getFullYear().toString().slice(-2); // Get last two digits of the year
+    const hours = now.getHours();
+    const minutes = now.getMinutes().toString().padStart(2, '0'); // Get minutes and pad with leading zero if needed
+    const formattedHours = (hours % 12 || 12).toString(); // Convert to 12-hour format and handle midnight (0) as 12
+
+    return `${day}/${month}/${year} ${formattedHours}:${minutes}`;
+}
 
 window.onclick = function (event) {
   if (!event.target.matches(".dropbtn")) {

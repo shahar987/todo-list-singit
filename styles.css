@@ -43,7 +43,7 @@ body {
 }
 .task {
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   align-items: center;
   box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.15);
   padding: 0px;
@@ -56,13 +56,17 @@ body {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  overflow-wrap: break-word;
+  width: 240;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .task-data > p {
   margin: 0;
-  max-width: 240px;
+  width: 240px;
   text-align: left;
+  word-wrap: break-word;
+  white-space: normal;
 }
 .edit-border {
   border: rgba(0, 0, 0, 0.47) 1px solid;
@@ -143,7 +147,8 @@ i {
   position: absolute;
   background-color: white;
   border-radius: 3px;
-  box-shadow: -10px 10px 20px -10px rgba(0, 0, 0, 0.256);  z-index: 1;
+  box-shadow: -10px 10px 20px -10px rgba(0, 0, 0, 0.256);
+  z-index: 1;
 }
 
 .dropdown-content i {
@@ -171,7 +176,7 @@ i {
   color: #f7fc24;
 }
 .dropdown i:hover {
-    font-size: 12px;
+  font-size: 12px;
 }
 
 .show {
@@ -179,6 +184,15 @@ i {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+p {
+  font-size: 14px;
+}
+
+.time {
+  font-size: 10px;
+  color: gray;
 }
 
 ::-webkit-scrollbar {
